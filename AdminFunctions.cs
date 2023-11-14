@@ -14,20 +14,34 @@ namespace Banken
         public static void DoAdminTasks()
         {
             using(BankContext context = new BankContext()) {
-                Console.WriteLine("Current users in system:");
-                List<User> users = DbHelper.GetAllUsers(context);
-
-                foreach (User user in users)
-                {
-                    Console.WriteLine($"{user.Name}");
-
-                }
-                Console.WriteLine($"Total number of users: {users.Count()}");
-                Console.WriteLine("c to Create a new user");
-                Console.WriteLine("x to exit");
                 
-                while (true)
+
+
+
+                bool Is_running = true; 
+
+
+
+                while (Is_running)
                 {
+                    Console.Clear();
+                    Console.WriteLine("Current users in system:");
+                    List<User> users = DbHelper.GetAllUsers(context);
+
+                    foreach (User user in users)
+                    {
+                        Console.WriteLine($"{user.Name}");
+
+                    }
+                    
+                    Console.WriteLine($"Total number of users: {users.Count()}");
+                    Console.WriteLine("c to Create a new user");
+                    Console.WriteLine("x to exit");
+                    Console.WriteLine("d to Delete");
+
+
+
+
                     Console.Write("Enter command:");
                     string command = Console.ReadLine();
 
@@ -41,7 +55,45 @@ namespace Banken
                         case "x":
                             //Exit
                             return;
-                            
+
+                        case "d":
+
+                        
+                            Console.WriteLine("Enter the name of the user to delete:");
+                            string userNameToDelete = Console.ReadLine();
+
+                            // Find the user to delete
+                            User userToDelete = users.FirstOrDefault(u => u.Name.ToLower() == userNameToDelete.ToLower());
+
+                            if (userToDelete != null)
+                            {   
+                                Console.WriteLine($"Name: {userToDelete.Name}");
+                                Console.WriteLine($"Pin: {userToDelete.Pin}");
+                                Console.Write("Enter 'yes' to confirm deletion: ");
+                                string confirmation = Console.ReadLine();
+
+                                if (confirmation.ToLower() == "yes")
+                                {
+                                    // Remove the user from the context
+                                    context.Users.Remove(userToDelete);
+
+                                    // Save changes to apply the deletion
+                                    context.SaveChanges();
+
+                                    Console.WriteLine($"User {userNameToDelete} deleted successfully.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Deletion canceled.");
+                                    Console.Clear();
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"User with name {userNameToDelete} not found.");
+                            }
+                            break;
+
 
                         default:
                             Console.WriteLine($"Unknown command{command}");
