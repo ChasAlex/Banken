@@ -16,41 +16,46 @@ namespace Banken
             using (BankContext context = new BankContext())
             {
                 Console.WriteLine("Loggar...");
-                int try_counter = 0;
+                
 
                 List<User> users = DbHelper.GetAllUsers(context);
+                int try_counter = 0;
+                bool Is_running = true;
+                do {
+                    foreach (User user in users)
+                    {
+                        if (userName.ToLower() == user.Name.ToLower() && pin == user.Pin)
+                        {
+                            Console.WriteLine($"{user.Name} loggade in...");
+                            
+                            return user;
+                        }
+                        else if (userName.ToLower() == "admin" && pin == "1234")
+                        {
+                            AdminFunctions.DoAdminTasks();
+                            return null;
+                        }
+                        
+                    }
 
-                foreach (User user in users)
-                {
-                    if (userName.ToLower() == user.Name.ToLower() && pin == user.Pin)
+                    try_counter++;
+                    Console.WriteLine($"Inloggning misslyckad, Försök: {try_counter.ToString()}");
+                    Console.Write("Enter Username: ");
+                    userName = Console.ReadLine();
+                    Console.Write("Enter Pin: ");
+                    pin = Console.ReadLine();
+                    if (try_counter >= 3)
                     {
-                        Console.WriteLine($"{user.Name} loggade in...");
-                        return user;
                         
-                        // Assuming you want to exit the method after a successful login
-                    }
-                    else if (userName.ToLower() == "admin" && pin == "1234")
-                    {
-                        AdminFunctions.DoAdminTasks();
-                        return null; // Assuming you want to exit the method after admin login
-                    }
-                    else if (userName.ToLower() != user.Name.ToLower() || pin != user.Pin)
-                    {
-                        try_counter++;
-                        // Additional logic for failed attempts if needed
-                    }
-                    else if (try_counter >= 3)
-                    {
-                        Console.WriteLine($"Inloggning misslyckad, Försök: {try_counter.ToString()}");
-                        Thread.Sleep(5000);
+                        Is_running = false;
                         
-                        break;
                     }
-                }
+                } while (Is_running);
 
                 // Additional logic if no user is found
-                Console.WriteLine("Kunde inte hitta användare...");
-               
+                Console.WriteLine("För många misslyckad försök, Systemet stängs ner...");
+                Environment.Exit(0);
+
                 return null; // Return null if no user is found
             }
         }
@@ -59,8 +64,8 @@ namespace Banken
         {
             //Account account = user.Accounts.FirstOrDefault();
             if (user != null) { 
-            Console.Clear();
-            Console.WriteLine($"{user.Name} was logged in");
+            
+            
 
             string text_menu =("Meny:\n" +
                         "1. Se dina konton och saldo\n" +
@@ -74,8 +79,9 @@ namespace Banken
 
             do{
                     Console.Clear();
+                    Console.WriteLine($"{user.Name} är inloggad");
                     Console.WriteLine(text_menu);
-                    Console.Write("Please enter you choice:");
+                    Console.Write("Vänligen mata in:");
                     string user_input = Console.ReadLine();
                     int parsedNumber;
 
@@ -103,7 +109,9 @@ namespace Banken
                                 break;
                             case 6:
                                 Console.WriteLine("Loggar ut");
+                                Console.Clear();
                                 Is_running = false;
+
                                 break;
 
 

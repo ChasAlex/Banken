@@ -30,7 +30,10 @@ namespace Banken
 
                     foreach (User user in users)
                     {
-                        Console.WriteLine($"{user.Name}");
+                        Console.WriteLine($"Username: {user.Name}");
+                        Console.WriteLine($"Pin: {user.Pin}");
+                        Console.WriteLine($"Accounts: {user.Accounts}");
+                        Console.WriteLine();
 
                     }
                     
@@ -54,7 +57,11 @@ namespace Banken
 
                         case "x":
                             //Exit
+                            Console.Clear();
                             return;
+
+
+
 
                         case "d":
 
@@ -85,7 +92,7 @@ namespace Banken
                                 else
                                 {
                                     Console.WriteLine("Deletion canceled.");
-                                    Console.Clear();
+                                    
                                 }
                             }
                             else
