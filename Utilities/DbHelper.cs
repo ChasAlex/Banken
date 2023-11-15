@@ -10,6 +10,7 @@ namespace Banken.Utilities
 {
     internal class DbHelper
     {
+        
         public static List<User>GetAllUsers(BankContext context)
         {
             List<User> users = context.Users.ToList();

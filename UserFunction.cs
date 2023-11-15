@@ -17,25 +17,27 @@ namespace Banken
             {
                 Console.WriteLine("Loggar...");
                 
+                //User user = DbHelper.GetUser(context);
 
                 List<User> users = DbHelper.GetAllUsers(context);
                 int try_counter = 0;
                 bool Is_running = true;
                 do {
+                    if (userName.ToLower() == "admin" && pin == "1234")
+                    {
+                        AdminFunctions.DoAdminTasks();
+                        return null;
+                    }
                     foreach (User user in users)
                     {
+                        
                         if (userName.ToLower() == user.Name.ToLower() && pin == user.Pin)
                         {
                             Console.WriteLine($"{user.Name} loggade in...");
-                            
+
                             return user;
                         }
-                        else if (userName.ToLower() == "admin" && pin == "1234")
-                        {
-                            AdminFunctions.DoAdminTasks();
-                            return null;
-                        }
-                        
+
                     }
 
                     try_counter++;
@@ -63,6 +65,8 @@ namespace Banken
         public static void Menu_Logged(User user)
         {
             //Account account = user.Accounts.FirstOrDefault();
+           
+            
             if (user != null) { 
             
             
@@ -88,36 +92,39 @@ namespace Banken
                     if (int.TryParse(user_input, out parsedNumber))
                     {
                         // Parsing succeeded
-                        switch (parsedNumber)
+                        using (BankContext context = new BankContext())
                         {
-                            case 1:
+                            switch (parsedNumber)
+                            {
+                                case 1:
 
-                                Console.WriteLine("Ser över dina konto");
+                                    Console.WriteLine("Ser över dina konto");
 
-                                break;
-                            case 2:
-                                Console.WriteLine("Överföring mellan konton");
-                                break;
-                            case 3:
-                                Console.WriteLine("Ta ut pengar");
-                                break;
-                            case 4:
-                                Console.WriteLine("Sätt in pengar");
-                                break;
-                            case 5:
-                                Console.WriteLine("Öppna nytt konto");
-                                break;
-                            case 6:
-                                Console.WriteLine("Loggar ut");
-                                Console.Clear();
-                                Is_running = false;
+                                    break;
+                                case 2:
+                                    Console.WriteLine("Överföring mellan konton");
+                                    break;
+                                case 3:
+                                    Console.WriteLine("Ta ut pengar");
+                                    break;
+                                case 4:
+                                    Console.WriteLine("Sätt in pengar");
+                                    break;
+                                case 5:
+                                    Console.WriteLine("Öppna nytt konto");
+                                    break;
+                                case 6:
+                                    Console.WriteLine("Loggar ut");
+                                    Console.Clear();
+                                    Is_running = false;
 
-                                break;
-
-
+                                    break;
 
 
 
+
+
+                            }
                         }
                     }
                     else
