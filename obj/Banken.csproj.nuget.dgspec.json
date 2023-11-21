@@ -11,7 +11,7 @@
         "projectName": "Banken",
         "projectPath": "C:\\Users\\Alex Lundquist\\source\\repos\\Banken\\Banken.csproj",
         "packagesPath": "C:\\Users\\Alex Lundquist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alex Lundquist\\Source\\Repos\\Banken\\obj\\",
+        "outputPath": "C:\\Users\\Alex Lundquist\\source\\repos\\Banken\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

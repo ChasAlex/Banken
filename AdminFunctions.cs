@@ -30,7 +30,9 @@ namespace Banken
 
                     foreach (User user in users)
                     {
-                        Console.WriteLine($"{user.Name}");
+                        Console.WriteLine($"Username: {user.Name}");
+                        Console.WriteLine($"Pin: {user.Pin}");
+                        Console.WriteLine();
 
                     }
                     
@@ -126,10 +128,12 @@ namespace Banken
             if(success)
             {
                 Console.WriteLine($"Created user {username} with pin {pin}");
+                Console.ReadLine();
             }else {
 
 
                 Console.WriteLine("User created failed");
+                Console.ReadLine();
                }
 
         }

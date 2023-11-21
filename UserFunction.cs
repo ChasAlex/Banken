@@ -6,79 +6,78 @@ using System.Threading.Tasks;
 using Banken.Data;
 using Banken.Models;
 using Banken.Utilities;
+using Banken;
 
-namespace Banken
+internal static class UserFunction
 {
-    internal static class UserFunction 
+    public static User CheckUser(string userName, string pin)
     {
-        public static User CheckUser(string userName, string pin)
+        using (BankContext context = new BankContext())
         {
-            using (BankContext context = new BankContext())
+            Console.WriteLine("Logging in...");
+
+            User userToReturn = null;
+
+            for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine("Loggar...");
-                int try_counter = 0;
+                userToReturn = DbHelper.UserGetUserWithPin(context, userName, pin);
 
-                List<User> users = DbHelper.GetAllUsers(context);
-
-                foreach (User user in users)
+                if (userName == "admin" && pin == "1234")
                 {
-                    if (userName.ToLower() == user.Name.ToLower() && pin == user.Pin)
-                    {
-                        Console.WriteLine($"{user.Name} loggade in...");
-                        return user;
-                        
-                        // Assuming you want to exit the method after a successful login
-                    }
-                    else if (userName.ToLower() == "admin" && pin == "1234")
-                    {
-                        AdminFunctions.DoAdminTasks();
-                        return null; // Assuming you want to exit the method after admin login
-                    }
-                    else if (userName.ToLower() != user.Name.ToLower() || pin != user.Pin)
-                    {
-                        try_counter++;
-                        // Additional logic for failed attempts if needed
-                    }
-                    else if (try_counter >= 3)
-                    {
-                        Console.WriteLine($"Inloggning misslyckad, Försök: {try_counter.ToString()}");
-                        Thread.Sleep(5000);
-                        
-                        break;
-                    }
+                    AdminFunctions.DoAdminTasks();
+                    return null;
+
                 }
 
-                // Additional logic if no user is found
-                Console.WriteLine("Kunde inte hitta användare...");
-               
-                return null; // Return null if no user is found
+                if (userToReturn != null)
+                {
+                    return userToReturn;
+                }
+                else
+                {
+                    Console.WriteLine($"Attempt: {i + 2}. Please try again.");
+                    Console.Write("Enter user name: ");
+                    userName = Console.ReadLine();
+                    Console.Write("Enter Pin: ");
+                    pin = Console.ReadLine();
+                }
             }
-        }
 
-        public static void Menu_Logged(User user)
+            Console.WriteLine("Too many login attempts. Exiting...");
+            Environment.Exit(0);
+
+            return null;
+        }
+    }
+
+    public static void Menu_Logged(User user)
+    {
+        if (user != null)
         {
-            //Account account = user.Accounts.FirstOrDefault();
-            if (user != null) { 
             Console.Clear();
             Console.WriteLine($"{user.Name} was logged in");
 
-            string text_menu =("Meny:\n" +
-                        "1. Se dina konton och saldo\n" +
-                        "2. Överföring mellan konton\n" +
-                        "3. Ta ut pengar\n" +
-                        "4. Sätt in pengar\n" +
-                        "5. Öppna nytt konto\n" +
-                        "6. Logga ut");
+            string text_menu = ("Menu:\n" +
+                                "1. View your accounts and balances\n" +
+                                "2. Transfer between accounts\n" +
+                                "3. Withdraw money\n" +
+                                "4. Deposit money\n" +
+                                "5. Open a new account\n" +
+                                "6. Log out");
 
             bool Is_running = true;
 
-            do{
-                    Console.Clear();
-                    Console.WriteLine(text_menu);
-                    Console.Write("Please enter you choice:");
-                    string user_input = Console.ReadLine();
-                    int parsedNumber;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine($"{user.Name} is logged in...");
+                Console.WriteLine(text_menu);
+                Console.Write("Please enter your choice:");
+                string user_input = Console.ReadLine();
+                int parsedNumber;
 
+                using (BankContext context = new BankContext())
+                {
                     if (int.TryParse(user_input, out parsedNumber))
                     {
                         // Parsing succeeded
@@ -86,30 +85,49 @@ namespace Banken
                         {
                             case 1:
 
-                                Console.WriteLine("Ser över dina konto");
+
+                                AccountsFunction.SeeAccountsAndBalance(user, context);
+                                Console.WriteLine("Press enter to return to menu...");
+                                Console.ReadLine();
 
                                 break;
                             case 2:
-                                Console.WriteLine("Överföring mellan konton");
+                                AccountsFunction.TransferFunds(user, context);
+                                Console.WriteLine("Press enter to return to menu...");
+                                Console.ReadLine();
+
+
+
+
                                 break;
                             case 3:
-                                Console.WriteLine("Ta ut pengar");
+                                Console.WriteLine("Withdrawing money...");
+
+                                AccountsFunction.RemoveMoney(user, context);
+                                Console.WriteLine("Press enter to return to menu...");
+                                Console.ReadLine();
+
                                 break;
                             case 4:
-                                Console.WriteLine("Sätt in pengar");
+                                AccountsFunction.AddMoney(user, context);
+                                Console.WriteLine("Press enter to return to menu...");
+                                Console.ReadLine();
                                 break;
                             case 5:
-                                Console.WriteLine("Öppna nytt konto");
+                                AccountsFunction.OpenAccount(user, context);
+                                Console.WriteLine("Press enter to return to menu...");
+                                Console.ReadLine();
                                 break;
                             case 6:
-                                Console.WriteLine("Loggar ut");
+                                Console.WriteLine("Logging out");
+                                Console.Clear();
                                 Is_running = false;
+
                                 break;
+                            default:
+                                Console.WriteLine("Invalid choice. Please enter a valid number.");
 
-
-
-
-
+                                break;
                         }
                     }
                     else
@@ -117,19 +135,8 @@ namespace Banken
                         // Parsing failed
                         Console.WriteLine("Invalid input. Please enter a valid integer.");
                     }
-
-                } while (Is_running);
-            
-
-
-
-
-
+                }
+            } while (Is_running);
         }
-
-
-    }
     }
 }
-
-
