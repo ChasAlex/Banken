@@ -2892,23 +2892,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\knuta\\.nuget\\packages\\": {},
+    "C:\\Users\\Alex Lundquist\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\knuta\\Source\\Repos\\Banken1\\Banken.csproj",
+      "projectUniqueName": "C:\\Users\\Alex Lundquist\\source\\repos\\Banken\\Banken.csproj",
       "projectName": "Banken",
-      "projectPath": "C:\\Users\\knuta\\Source\\Repos\\Banken1\\Banken.csproj",
-      "packagesPath": "C:\\Users\\knuta\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\knuta\\Source\\Repos\\Banken1\\obj\\",
+      "projectPath": "C:\\Users\\Alex Lundquist\\source\\repos\\Banken\\Banken.csproj",
+      "packagesPath": "C:\\Users\\Alex Lundquist\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Alex Lundquist\\source\\repos\\Banken\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\knuta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Alex Lundquist\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2967,8 +2967,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Alex Lundquist\\source\\repos\\Banken\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

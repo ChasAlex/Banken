@@ -10,7 +10,7 @@ namespace Banken
             bool Is_runing = true;
             do
             {
-                
+                Console.Clear();
                 Console.WriteLine("Welcome to the Bank!");
                 Console.WriteLine("Please login here");
 
@@ -24,8 +24,6 @@ namespace Banken
 
                 User user1 = UserFunction.CheckUser(userName, pin);
                 UserFunction.Menu_Logged(user1);
-                
-                
 
 
             } while (Is_runing);

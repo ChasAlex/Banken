@@ -32,7 +32,6 @@ namespace Banken
                     {
                         Console.WriteLine($"Username: {user.Name}");
                         Console.WriteLine($"Pin: {user.Pin}");
-                        Console.WriteLine($"Accounts: {user.Accounts}");
                         Console.WriteLine();
 
                     }
@@ -57,9 +56,7 @@ namespace Banken
 
                         case "x":
                             //Exit
-                            Console.Clear();
                             return;
-
 
 
 
@@ -133,10 +130,12 @@ namespace Banken
             if(success)
             {
                 Console.WriteLine($"Created user {username} with pin {pin}");
+                Console.ReadLine();
             }else {
 
 
                 Console.WriteLine("User created failed");
+                Console.ReadLine();
                }
 
         }
