@@ -91,12 +91,13 @@ namespace Banken
                         switch (parsedNumber)
                         {
                             case 1:
-
+ 
                                 Console.WriteLine("Ser över dina konto");
 
                                 break;
                             case 2:
                                 Console.WriteLine("Överföring mellan konton");
+                                AccountFunctions.TransferFunds(user);
                                 break;
                             case 3:
                                 Console.WriteLine("Ta ut pengar");

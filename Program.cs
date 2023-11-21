@@ -10,7 +10,6 @@ namespace Banken
             bool Is_runing = true;
             do
             {
-                
                 Console.WriteLine("Welcome to the Bank!");
                 Console.WriteLine("Please login here");
 

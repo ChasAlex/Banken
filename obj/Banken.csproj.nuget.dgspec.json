@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\knuta\\source\\repos\\Banken1\\Banken.csproj": {}
+    "C:\\Users\\alexc\\source\\repos\\Banken\\Banken.csproj": {}
   },
   "projects": {
-    "C:\\Users\\knuta\\source\\repos\\Banken1\\Banken.csproj": {
+    "C:\\Users\\alexc\\source\\repos\\Banken\\Banken.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\knuta\\source\\repos\\Banken1\\Banken.csproj",
+        "projectUniqueName": "C:\\Users\\alexc\\source\\repos\\Banken\\Banken.csproj",
         "projectName": "Banken",
-        "projectPath": "C:\\Users\\knuta\\source\\repos\\Banken1\\Banken.csproj",
-        "packagesPath": "C:\\Users\\knuta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\knuta\\source\\repos\\Banken1\\obj\\",
+        "projectPath": "C:\\Users\\alexc\\source\\repos\\Banken\\Banken.csproj",
+        "packagesPath": "C:\\Users\\alexc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alexc\\source\\repos\\Banken\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\knuta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\alexc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
