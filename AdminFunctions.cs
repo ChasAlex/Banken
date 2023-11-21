@@ -58,6 +58,8 @@ namespace Banken
                             //Exit
                             return;
 
+
+
                         case "d":
 
                         
@@ -87,7 +89,7 @@ namespace Banken
                                 else
                                 {
                                     Console.WriteLine("Deletion canceled.");
-                                    Console.Clear();
+                                    
                                 }
                             }
                             else
