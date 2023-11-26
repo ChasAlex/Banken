@@ -51,6 +51,8 @@ namespace Banken
                             // Exit
                             return;
 
+
+
                         case "d":
                             Console.WriteLine("Enter the name of the user to delete:");
                             string userNameToDelete = Console.ReadLine();
@@ -78,7 +80,7 @@ namespace Banken
                                 else
                                 {
                                     Console.WriteLine("Deletion canceled.");
-                                    Console.Clear();
+                                    
                                 }
                             }
                             else
