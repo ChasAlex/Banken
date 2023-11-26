@@ -90,9 +90,20 @@ namespace Banken
                 {
                     Console.Write("How much would you like to withdraw?");
                     double amount = double.Parse(Console.ReadLine());
-                    DbHelper.RemoveMoneyToAccount(context, user.Id, accountToRemoveMoney, amount);
+                    Console.WriteLine("Please input your Pin for confirmation");
+                    string pin = Console.ReadLine();
+                    if (pin == user.Pin)
+                    {
+                        DbHelper.RemoveMoneyToAccount(context, user.Id, accountToRemoveMoney, amount);
 
-                    return;
+                        return;
+                    }
+                    else 
+                    { 
+                        Console.WriteLine("The Pin does not match the user");
+                        
+                        return;
+                    }
                 }
             }
         }
@@ -148,6 +159,12 @@ namespace Banken
             if (DbHelper.TransferFundsInDb(context, user.Id, acc_transfer_from, acc_transfer_to, amount) == true)
             {
                 Console.WriteLine($"Successfully transferred {amount.ToString()} from {acc_transfer_from} to {acc_transfer_to} ");
+                foreach (Account account in accounts_list)
+                {
+                    Console.WriteLine($"Account name: {account.Name}");
+                    Console.WriteLine($"Balance: {account.Balance} SEK");
+                    Console.WriteLine();
+                }
             }
             else
             {

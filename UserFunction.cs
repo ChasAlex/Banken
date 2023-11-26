@@ -131,6 +131,8 @@ internal static class UserFunction
                             default:
                                 // Handling invalid menu choices
                                 Console.WriteLine("Invalid choice. Please enter a valid number.");
+                                Console.WriteLine("Press enter to return to the menu...");
+                                Console.ReadLine();
                                 break;
                         }
                     }
@@ -138,6 +140,8 @@ internal static class UserFunction
                     {
                         // Handling invalid user input
                         Console.WriteLine("Invalid input. Please enter a valid integer.");
+                        Console.WriteLine("Press enter to return to the menu...");
+                        Console.ReadLine();
                     }
                 }
             } while (Is_running);

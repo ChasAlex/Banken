@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -64,21 +65,31 @@ namespace Banken.Utilities
             // Find the account based on the specified conditions
             Account accountToRemove = context.Accounts
                 .FirstOrDefault(account => account.UserId == userId && account.Name == name);
+            
 
-            if (accountToRemove != null)
-            {
-                // Update the balance
-                accountToRemove.Balance -= amount;
+            
+           
 
-                // Save changes to the database
-                context.SaveChanges();
 
-                Console.WriteLine($"Withdrew {amount} from account {accountToRemove.Name}. New balance: {accountToRemove.Balance}");
-            }
-            else
-            {
-                Console.WriteLine($"Account not found for user ID {userId} and name {name}");
-            }
+
+
+
+                if (accountToRemove != null)
+                {
+                    // Update the balance
+                    accountToRemove.Balance -= amount;
+
+                    // Save changes to the database
+                    context.SaveChanges();
+
+                    Console.WriteLine($"Withdrew {amount} from account {accountToRemove.Name}. New balance: {accountToRemove.Balance}");
+                }
+                else
+                {
+                    Console.WriteLine($"Account not found for user ID {userId} and name {name}");
+                }
+            
+            
         }
 
         // Method to retrieve all accounts associated with a user
@@ -142,10 +153,20 @@ namespace Banken.Utilities
                 Account accountToRemove = context.Accounts
                     .FirstOrDefault(account => account.UserId == userId && account.Name == name_remove);
 
+                if (accountToRemove.Balance < amount) 
+                {
+                    Console.WriteLine("The account you tried to transfer from does not have that amount");
+                    return false;
+                }
+
                 if (accountToAdd != null && accountToRemove != null)
                 {
                     accountToAdd.Balance += amount;
                     accountToRemove.Balance -= amount;
+
+                    double newBalanceRemoved = accountToRemove.Balance;
+                    double newBalanceAdded = accountToAdd.Balance;
+                    
                 }
                 else
                 {
