@@ -11,16 +11,12 @@ namespace Banken
 {
     internal static class AdminFunctions
     {
+        // Method to perform administrative tasks
         public static void DoAdminTasks()
         {
-            using(BankContext context = new BankContext()) {
-                
-
-
-
-                bool Is_running = true; 
-
-
+            using (BankContext context = new BankContext())
+            {
+                bool Is_running = true;
 
                 while (Is_running)
                 {
@@ -28,26 +24,23 @@ namespace Banken
                     Console.WriteLine("Current users in system:");
                     List<User> users = DbHelper.GetAllUsers(context);
 
+                    // Displaying information for each user
                     foreach (User user in users)
                     {
                         Console.WriteLine($"Username: {user.Name}");
                         Console.WriteLine($"Pin: {user.Pin}");
                         Console.WriteLine();
-
                     }
-                    
+
                     Console.WriteLine($"Total number of users: {users.Count()}");
                     Console.WriteLine("c to Create a new user");
                     Console.WriteLine("x to exit");
                     Console.WriteLine("d to Delete");
 
-
-
-
                     Console.Write("Enter command:");
                     string command = Console.ReadLine();
 
-                    switch(command.ToLower())
+                    switch (command.ToLower())
                     {
                         case "c":
                             // Create user
@@ -55,14 +48,12 @@ namespace Banken
                             break;
 
                         case "x":
-                            //Exit
+                            // Exit
                             return;
 
 
 
                         case "d":
-
-                        
                             Console.WriteLine("Enter the name of the user to delete:");
                             string userNameToDelete = Console.ReadLine();
 
@@ -70,7 +61,7 @@ namespace Banken
                             User userToDelete = users.FirstOrDefault(u => u.Name.ToLower() == userNameToDelete.ToLower());
 
                             if (userToDelete != null)
-                            {   
+                            {
                                 Console.WriteLine($"Name: {userToDelete.Name}");
                                 Console.WriteLine($"Pin: {userToDelete.Pin}");
                                 Console.Write("Enter 'yes' to confirm deletion: ");
@@ -98,18 +89,15 @@ namespace Banken
                             }
                             break;
 
-
                         default:
-                            Console.WriteLine($"Unknown command{command}");
+                            Console.WriteLine($"Unknown command {command}");
                             break;
                     }
                 }
-
-
             }
-            
         }
 
+        // Method to create a new user
         private static void CreateUser(BankContext context)
         {
             Console.WriteLine("Create user");
@@ -125,21 +113,18 @@ namespace Banken
                 Pin = pin,
             };
 
-            bool success = DbHelper.AddUser(context,newUser);
+            bool success = DbHelper.AddUser(context, newUser);
 
-            if(success)
+            if (success)
             {
                 Console.WriteLine($"Created user {username} with pin {pin}");
                 Console.ReadLine();
-            }else {
-
-
-                Console.WriteLine("User created failed");
+            }
+            else
+            {
+                Console.WriteLine("User creation failed");
                 Console.ReadLine();
-               }
-
+            }
         }
-
-        
     }
 }
