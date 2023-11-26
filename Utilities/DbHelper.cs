@@ -11,12 +11,14 @@ namespace Banken.Utilities
 {
     internal class DbHelper
     {
-        public static List<User>GetAllUsers(BankContext context)
+        // Method to retrieve all users from the database
+        public static List<User> GetAllUsers(BankContext context)
         {
             List<User> users = context.Users.ToList();
             return users;
         }
 
+        // Method to retrieve a user based on username and PIN
         public static User UserGetUserWithPin(BankContext context, string username, string pin)
         {
             try
@@ -33,7 +35,7 @@ namespace Banken.Utilities
             }
         }
 
-
+        // Method to add money to a specific account
         public static void AddMoneyToAccount(BankContext context, int userId, string name, double amount)
         {
             // Find the account based on the specified conditions
@@ -56,22 +58,22 @@ namespace Banken.Utilities
             }
         }
 
-
+        // Method to remove money from a specific account
         public static void RemoveMoneyToAccount(BankContext context, int userId, string name, double amount)
         {
             // Find the account based on the specified conditions
-            Account accountToAdd = context.Accounts
+            Account accountToRemove = context.Accounts
                 .FirstOrDefault(account => account.UserId == userId && account.Name == name);
 
-            if (accountToAdd != null)
+            if (accountToRemove != null)
             {
                 // Update the balance
-                accountToAdd.Balance -= amount;
+                accountToRemove.Balance -= amount;
 
                 // Save changes to the database
                 context.SaveChanges();
 
-                Console.WriteLine($"Withdrew {amount} to account {accountToAdd.Name}. New balance: {accountToAdd.Balance}");
+                Console.WriteLine($"Withdrew {amount} from account {accountToRemove.Name}. New balance: {accountToRemove.Balance}");
             }
             else
             {
@@ -79,10 +81,7 @@ namespace Banken.Utilities
             }
         }
 
-
-
-
-
+        // Method to retrieve all accounts associated with a user
         public static List<Account> GetAccountsByUserId(BankContext context, int userid)
         {
             try
@@ -100,14 +99,15 @@ namespace Banken.Utilities
             }
         }
 
-
-        public static bool AddUser(BankContext context,User user)
+        // Method to add a new user to the database
+        public static bool AddUser(BankContext context, User user)
         {
             context.Users.Add(user);
             try
             {
                 context.SaveChanges();
-            }catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine($"Error adding user: {e}");
                 return false;
@@ -115,35 +115,33 @@ namespace Banken.Utilities
             return true;
         }
 
-        public static bool AddAccount(BankContext context,Account account) 
+        // Method to add a new account to the database
+        public static bool AddAccount(BankContext context, Account account)
         {
-            
             context.Accounts.Add(account);
-            try 
+            try
             {
-
                 context.SaveChanges();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine($"Error adding account: {e}");
                 return false;
             }
             return true;
-        
-        
         }
 
-
+        // Method to transfer funds between accounts in the database
         public static bool TransferFundsInDb(BankContext context, int userId, string name_remove, string name_add, double amount)
         {
-            
             try
             {
                 Account accountToAdd = context.Accounts
-                .FirstOrDefault(account => account.UserId == userId && account.Name == name_add);
+                    .FirstOrDefault(account => account.UserId == userId && account.Name == name_add);
 
                 Account accountToRemove = context.Accounts
-                .FirstOrDefault(account => account.UserId == userId && account.Name == name_remove);
+                    .FirstOrDefault(account => account.UserId == userId && account.Name == name_remove);
+
                 if (accountToAdd != null && accountToRemove != null)
                 {
                     accountToAdd.Balance += amount;
@@ -153,29 +151,15 @@ namespace Banken.Utilities
                 {
                     return false;
                 }
-            
-                context.SaveChanges();
 
-            }catch( Exception e)
+                context.SaveChanges();
+            }
+            catch (Exception e)
             {
-                Console.WriteLine($"Error transfering funds: {e}");
+                Console.WriteLine($"Error transferring funds: {e}");
                 return false;
             }
             return true;
-
-
-
-
-
-
-            
-
-
-
         }
-
-
-
-
     }
 }
